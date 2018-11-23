@@ -1,8 +1,6 @@
 package algorithm
 
-import java.util.*
-
-class Pair(private val youngest: Person, private val oldest: Person) {
+data class Pair(private val youngest: Person, private val oldest: Person) {
 
     init {
         require(!oldest.isYoungerThan(youngest)) { "First person must be the youngest" }
@@ -30,15 +28,4 @@ class Pair(private val youngest: Person, private val oldest: Person) {
             if (combinedNameLength() > anotherPair.combinedNameLength()) this else anotherPair
 
     private fun combinedNameLength() = youngest.nameLength() + oldest.nameLength()
-
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
-        val pair = o as Pair?
-        return youngest == pair!!.youngest && oldest == pair.oldest
-    }
-
-    override fun hashCode(): Int {
-        return Objects.hash(youngest, oldest)
-    }
 }
