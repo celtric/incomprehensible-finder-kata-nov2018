@@ -8,7 +8,7 @@ public class Pair {
 	private Person oldest;
 
 	public Pair(Person youngest, Person oldest) {
-		if (!youngest.isYoungerThan(oldest)) {
+		if (oldest.isYoungerThan(youngest)) {
 			throw new RuntimeException("First person must be the youngest");
 		}
 
@@ -40,6 +40,14 @@ public class Pair {
 
 	Pair furthestInAge(Pair anotherPair) {
 		return isCloserInAgeThan(anotherPair) ? anotherPair : this;
+	}
+
+	Pair longestCombinedName(Pair anotherPair) {
+		return combinedNameLength() > anotherPair.combinedNameLength() ? this : anotherPair;
+	}
+
+	private int combinedNameLength() {
+		return youngest.nameLength() + oldest.nameLength();
 	}
 
 	@Override

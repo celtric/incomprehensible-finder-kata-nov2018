@@ -3,10 +3,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import org.junit.Test;
 
@@ -17,10 +14,10 @@ import algorithm.Person;
 
 public class FinderTests {
 
-	private Person sue = new Person(new Date(50, 0, 1));
-	private Person greg = new Person(new Date(52, 5, 1));
-	private Person sarah = new Person(new Date(82, 0, 1));
-	private Person mike = new Person(new Date(79, 0, 1));
+	private Person sue = new Person("Sue", new Date(50, 0, 1));
+	private Person greg = new Person("Greg", new Date(52, 5, 1));
+	private Person sarah = new Person("Sarah", new Date(82, 0, 1));
+	private Person mike = new Person("Mike", new Date(79, 0, 1));
 
 	@Test
 	public void Returns_Empty_Results_When_Given_Empty_List() {
@@ -106,4 +103,18 @@ public class FinderTests {
 		assertEquals(expectedPair, pair.get());
 	}
 
+	@Test
+	public void returns_pair_with_longest_combined_name() {
+		Person shortName1 = new Person("Short 1", new Date(50, 0, 1));
+		Person shortName2 = new Person("Short 2", new Date(50, 0, 2));
+		Person longName1 = new Person("Long name 1", new Date(50, 0, 1));
+		Person longName2 = new Person("Long name 2", new Date(50, 0, 2));
+		List<Person> people = Arrays.asList(shortName1, shortName2, longName1, longName2);
+		Finder finder = new Finder(people);
+
+		Optional<Pair> result = finder.Find(SortBy.LongestCombinedName);
+
+		assertTrue(result.isPresent());
+		assertEquals(new Pair(longName1, longName2), result.get());
+	}
 }

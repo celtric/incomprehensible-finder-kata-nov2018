@@ -3,9 +3,12 @@ package algorithm;
 import java.util.Date;
 
 public class Person {
-	private Date birthDate;
 
-	public Person(Date birthDate) {
+	private final String name;
+	private final Date birthDate;
+
+	public Person(String name, Date birthDate) {
+		this.name = name;
 		this.birthDate = birthDate;
 	}
 
@@ -23,6 +26,10 @@ public class Person {
 
 	Person oldest(Person anotherPerson) {
 		return isYoungerThan(anotherPerson) ? anotherPerson : this;
+	}
+
+	int nameLength() {
+		return name.length();
 	}
 }
 
