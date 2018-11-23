@@ -1,24 +1,10 @@
 package algorithm
 
-enum class SortBy {
+enum class SortBy(private val doChoose: (pairA: Pair, pairB: Pair) -> Pair) {
 
-    Closer {
-        override fun choose(pairA: Pair, pairB: Pair): Pair {
-            return pairA.closestInAge(pairB)
-        }
-    },
+    Closer(Pair::closestInAge),
+    Further(Pair::furthestInAge),
+    LongestCombinedName(Pair::longestCombinedName);
 
-    Further {
-        override fun choose(pairA: Pair, pairB: Pair): Pair {
-            return pairA.furthestInAge(pairB)
-        }
-    },
-
-    LongestCombinedName {
-        override fun choose(pairA: Pair, pairB: Pair): Pair {
-            return pairA.longestCombinedName(pairB)
-        }
-    };
-
-    internal abstract fun choose(pairA: Pair, pairB: Pair): Pair
+    internal fun choose(pairA: Pair, pairB: Pair) = doChoose(pairA, pairB)
 }
